@@ -337,10 +337,14 @@ abstract class ActivityReceiver extends BroadcastReceiver {
     }
 
     private int getPriority(INotificationManager sINM, String packageName, int uid) throws RemoteException {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return sINM.getPriority(packageName, uid);
-        } else {
-            return sINM.getPackagePriority(packageName, uid);
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                return sINM.getPriority(packageName, uid);
+            } else {
+                return sINM.getPackagePriority(packageName, uid);
+            }
+        } catch (NoSuchMethodError e) {
+            return 0;
         }
     }
 
