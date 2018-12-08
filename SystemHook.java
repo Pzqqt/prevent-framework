@@ -698,6 +698,8 @@ public final class SystemHook {
                 appOpsService.setMode(AppOpsManager.OP_RUN_IN_BACKGROUND, packageUid, packageName, mode);
             } catch (RemoteException e) {
                 PreventLog.d("cannot set background for " + packageName, e);
+            } catch (IllegalArgumentException e) {
+                PreventLog.d("cannot set background for " + packageName, e);
             }
         }
     }
